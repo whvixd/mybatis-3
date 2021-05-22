@@ -419,6 +419,7 @@ public class PooledDataSource implements DataSource {
 
     while (conn == null) {
       synchronized (state) {
+        // 若空闲线程集合不为空时，直接获取空闲线程，否则根据阈值是否创建新的连接
         if (!state.idleConnections.isEmpty()) {
           // Pool has available connection
           conn = state.idleConnections.remove(0);
